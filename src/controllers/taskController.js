@@ -12,7 +12,14 @@ export async function createTask(req, res, next) {
 }
 
 export async function getTask(req, res, next) {
-  const { id } = req.params;
-  const task = await taskService.getTaskById(Number(id));
-  res.status(200).json(task);
+  try {
+    const id = req.params.id;
+    const task = await taskService.getTaskById(id);
+    if (!task) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+    return res.status(200).json(task);
+  } catch (error) {
+    next(error)
+  }
 }

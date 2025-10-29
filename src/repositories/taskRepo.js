@@ -12,5 +12,7 @@ export async function create(data) {
 }
 
 export async function findById(id){
-  return prisma.task.findUnique({ where: { id: Number(id) } });
+  const n = Number(id);
+  if (!Number.isInteger(n) || n < 1) return null;
+  return prisma.task.findUnique({ where: { id: n } });
 }
