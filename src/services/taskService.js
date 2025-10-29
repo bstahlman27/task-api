@@ -9,7 +9,5 @@ export async function createTask(newTask) {
 }
 
 export async function getTaskById(id) {
-  return taskRepository.findById({
-    where: { id: Number(id) },
-  });
+  return taskRepository.findById(id);
 }
